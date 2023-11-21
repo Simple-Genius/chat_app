@@ -1,3 +1,4 @@
+import 'package:chat_app/app/modules/login/views/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/home_controller.dart';
@@ -8,7 +9,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("images/background.jpeg"),
                   fit: BoxFit.cover)),
@@ -25,22 +26,34 @@ class HomeView extends GetView<HomeController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Enjoy the new Experience of chatting \n                 with friends',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
-                  Text('Connect people around the world for free'),
-                  SizedBox(
+                  const Text('Connect people around the world for free'),
+                  const SizedBox(
                     height: 40,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff223af2)),
-                    child: const Text('Get Started'),
+                  Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Get.to(() => const LoginView());
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff223af2),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 120.0, vertical: 15),
+                        child: Text('Get Started'),
+                      ),
+                    ),
                   )
                 ],
               ),

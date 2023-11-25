@@ -26,9 +26,21 @@ class SignupView extends GetView<SignupController> {
                 'Welcome\nUser',
                 style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
               ),
-              CircleAvatar(
-                backgroundColor: Color(0xff999999),
-                radius: 60,
+              Stack(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Color(0xff999999),
+                    radius: 60,
+                  ),
+                  Positioned(
+                    left: 80,
+                    bottom: 1,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.add_a_photo),
+                    ),
+                  )
+                ],
               )
             ],
           ),

@@ -9,21 +9,17 @@ class DashboardView extends GetView<DashboardController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.format_align_left),
-          onPressed: () {},
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.format_align_left),
+            onPressed: () {},
+          ),
+          title: const Text('Dashboard'),
+          centerTitle: true,
         ),
-        title: const Text('Dashboard'),
-        centerTitle: true,
-      ),
-      bottomNavigationBar: BottomNavigationBar(items: []),
-      body: const Center(
-        child: Text(
-          'DashboardView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
+        bottomNavigationBar: BottomNavigationBar(items: []),
+        body: Column(
+          children: [],
+        ));
   }
 }

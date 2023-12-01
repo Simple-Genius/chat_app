@@ -1,3 +1,4 @@
+import 'package:chat_app/app/modules/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class DashboardView extends GetView<DashboardController> {
           title: const Text('Dashboard'),
           centerTitle: true,
         ),
-        bottomNavigationBar: BottomNavigationBar(items: []),
+        bottomNavigationBar: BottomNavBar(),
         body: Column(
           children: [],
         ));

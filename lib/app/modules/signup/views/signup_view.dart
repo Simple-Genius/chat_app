@@ -17,7 +17,7 @@ class SignupView extends GetView<SignupController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 150,
               ),
               Row(
@@ -45,33 +45,33 @@ class SignupView extends GetView<SignupController> {
                   )
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(
                 'Sign up to join',
                 style:
                     TextStyle(color: const Color.fromARGB(255, 146, 141, 141)),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               DetailsFeild(
                 hintText: 'name',
                 controller: controller.nameController,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               DetailsFeild(
                 hintText: 'phone',
                 controller: controller.phoneController,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               DetailsFeild(
                 hintText: 'email',
                 controller: controller.emailController,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               DetailsFeild(
                 hintText: 'password',
-                controller: controller.phoneController,
+                controller: controller.passwordController,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -95,32 +95,32 @@ class SignupView extends GetView<SignupController> {
                       ))
                 ],
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Have an account?'),
+                  const Text('Have an account?'),
                   TextButton(
                       onPressed: () {
-                        Get.to(() => LoginView());
+                        Get.to(() => const LoginView());
                       },
-                      child: Text(
+                      child: const Text(
                         'Sign In',
                         style: TextStyle(color: Colors.blue),
                       ))
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Align(
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: controller.signUp,
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 16, horizontal: 160),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 16, horizontal: 160),
                       ),
-                      child: Text('Sign Up')))
+                      child: const Text('Sign Up')))
             ],
           ),
         ));

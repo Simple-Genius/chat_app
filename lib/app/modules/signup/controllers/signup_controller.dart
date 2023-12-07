@@ -1,3 +1,7 @@
+import 'package:chat_app/app/modules/dashboard/views/dashboard_view.dart';
+import 'package:chat_app/app/modules/home/views/home_view.dart';
+import 'package:chat_app/app/service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +18,15 @@ class SignupController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  void signUp() async {
+    User? user = await authService.signInWithEmailAndPassword(
+        emailController.text, passwordController.text);
+    if (user != null) {
+      print('User has been created successfully');
+      Get.to(() => const DashboardView());
+    }
   }
 
   @override

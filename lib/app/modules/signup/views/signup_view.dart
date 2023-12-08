@@ -83,13 +83,13 @@ class SignupView extends GetView<SignupController> {
                         controller.checkBoxValue.value =
                             !controller.checkBoxValue.value;
                       },
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
                     ),
                   ),
-                  Text('I agree to the'),
+                  const Text('I agree to the'),
                   TextButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Terms of Service',
                         style: TextStyle(color: Colors.blue),
                       ))

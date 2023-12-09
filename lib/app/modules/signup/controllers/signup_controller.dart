@@ -21,7 +21,7 @@ class SignupController extends GetxController {
   }
 
   void signUp() async {
-    User? user = await authService.signInWithEmailAndPassword(
+    User? user = await authService.signUpWithEmailAndPassword(
         emailController.text, passwordController.text);
     if (user != null) {
       print('User has been created successfully');

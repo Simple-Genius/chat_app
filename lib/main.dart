@@ -26,7 +26,7 @@ Future<void> main() async {
   runApp(
     GetMaterialApp(
       title: "Application",
-      initialRoute: Routes.SIGNUP,
+      initialRoute: Routes.DASHBOARD,
       getPages: AppPages.routes,
     ),
   );

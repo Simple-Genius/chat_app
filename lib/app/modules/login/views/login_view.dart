@@ -83,7 +83,7 @@ class LoginView extends GetView<LoginController> {
               Align(
                   child: ElevatedButton(
                       onPressed: () {
-                        print('${controller.emailController.text}');
+                        // print('${controller.emailController.text}');
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

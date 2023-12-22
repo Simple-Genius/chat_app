@@ -25,7 +25,7 @@ class SignupController extends GetxController {
         emailController.text, passwordController.text);
     if (user != null) {
       print('User has been created successfully');
-      Get.to(() => const DashboardView());
+      Get.to(() => DashboardView());
     }
   }
 

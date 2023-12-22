@@ -5,12 +5,16 @@ import 'package:get/get.dart';
 class ChatItem extends StatelessWidget {
   const ChatItem({
     super.key,
+    required this.recieverEmail,
+    required this.lastMessage,
   });
+  final String recieverEmail;
+  final String lastMessage;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => ChatViewView()),
+      onTap: () => Get.to(() => ChatView(recieverEmail, lastMessage)),
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: Container(
@@ -33,14 +37,14 @@ class ChatItem extends StatelessWidget {
                     height: 7,
                   ),
                   Text(
-                    'Todd Peterson',
+                    recieverEmail,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 4,
                   ),
                   Text(
-                    'When are you coming home?',
+                    lastMessage,
                     style: TextStyle(color: Color.fromARGB(255, 123, 118, 118)),
                   )
                 ],

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class UserText extends StatelessWidget {
   const UserText({
     super.key,
+    required this.message,
   });
+  final String message;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class UserText extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Text(
-            'Hello how are you',
+            message,
             style: TextStyle(color: Colors.white),
           ),
         ),

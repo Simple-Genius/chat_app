@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class AuthService extends GetxService {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
   Rxn<User?> user = Rxn<User?>();
 
@@ -28,5 +30,9 @@ class AuthService extends GetxService {
       print(e.toString());
     }
     return null;
+  }
+
+  void signOut() {
+    _auth.signOut();
   }
 }

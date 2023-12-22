@@ -1,16 +1,35 @@
 import 'package:chat_app/app/modules/widgets/sender_text.dart';
 import 'package:chat_app/app/modules/widgets/user_text.dart';
+import 'package:chat_app/app/service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-class ChatViewView extends GetView {
-  const ChatViewView({Key? key}) : super(key: key);
+class ChatView extends GetView {
+  ChatView(this.receiverId, this.recieverEmail, {Key? key}) : super(key: key);
+  final String receiverId;
+  final String recieverEmail;
+  final TextEditingController messageController = TextEditingController();
+
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Widget buildMessage(DocumentSnapshot snapshot) {
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    var message = data['senderId'] == firebaseAuth.currentUser!.uid
+        ? UserText(message: 'User message')
+        : SenderText(message: "Sender message");
+
+    return message;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Claude Castro'),
+        title: Text(recieverEmail),
         backgroundColor: Color(0xFF2B3594),
         centerTitle: true,
       ),
@@ -19,17 +38,30 @@ class ChatViewView extends GetView {
           Expanded(
             child: SingleChildScrollView(
                 child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  SenderText(),
-                  UserText(),
-                ],
-              ),
-            )),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: StreamBuilder(
+                      stream: chatService.getMessages(
+                          firebaseAuth.currentUser!.uid, receiverId),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return Center(
+                            child: Text(
+                                'Could not load messages\n${snapshot.error}'),
+                          );
+                        }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          );
+                        }
+                        return ListView(
+                          children: snapshot.data!.docs
+                              .map((document) => buildMessage(document))
+                              .toList(),
+                        );
+                      },
+                    ))),
           ),
           Padding(
             padding:
@@ -47,7 +79,14 @@ class ChatViewView extends GetView {
                       IconButton(
                           onPressed: () {}, icon: Icon(Icons.attach_file)),
                       IconButton(
-                          onPressed: () {}, icon: Icon(Icons.keyboard_voice))
+                          onPressed: () async {
+                            if (messageController.text.isNotEmpty) {
+                              await chatService.sendMessage(
+                                  receiverId, messageController.text);
+                              messageController.clear();
+                            }
+                          },
+                          icon: Icon(Icons.keyboard_voice))
                     ],
                   ),
                   fillColor: const Color.fromARGB(255, 187, 184, 201),

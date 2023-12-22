@@ -1,4 +1,5 @@
 import 'package:chat_app/app/data/services/auth_service.dart';
+import 'package:chat_app/app/data/services/chat_service.dart';
 import 'package:chat_app/app/modules/login/controllers/login_controller.dart';
 import 'package:chat_app/app/modules/signup/controllers/signup_controller.dart';
 import 'package:chat_app/firebase_options.dart';
@@ -22,11 +23,12 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Get.putAsync<AuthService>(() async => AuthService());
+  Get.put<ChatService>(ChatService());
 
   runApp(
     GetMaterialApp(
       title: "Application",
-      initialRoute: Routes.DASHBOARD,
+      initialRoute: Routes.SIGNUP,
       getPages: AppPages.routes,
     ),
   );

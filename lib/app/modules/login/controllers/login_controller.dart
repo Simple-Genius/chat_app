@@ -1,3 +1,4 @@
+import 'package:chat_app/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:chat_app/app/modules/home/views/home_view.dart';
 import 'package:chat_app/app/service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,7 +20,7 @@ class LoginController extends GetxController {
     User? user = await authService.signInWithEmailAndPassword(
         emailController.text, passwordController.text);
     if (user != null) {
-      Get.to(() => HomeView());
+      Get.to(() => DashboardView());
     }
   }
 

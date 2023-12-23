@@ -1,6 +1,7 @@
 import 'package:chat_app/app/modules/login/controllers/login_controller.dart';
 import 'package:chat_app/app/modules/signup/views/signup_view.dart';
 import 'package:chat_app/app/modules/widgets/details_field.dart';
+import 'package:chat_app/app/service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -83,7 +84,7 @@ class LoginView extends GetView<LoginController> {
               Align(
                   child: ElevatedButton(
                       onPressed: () {
-                        // print('${controller.emailController.text}');
+                        controller.signIn();
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(

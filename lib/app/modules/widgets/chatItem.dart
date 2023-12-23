@@ -7,14 +7,16 @@ class ChatItem extends StatelessWidget {
     super.key,
     required this.recieverEmail,
     required this.lastMessage,
+    required this.recieverId,
   });
   final String recieverEmail;
   final String lastMessage;
+  final String recieverId;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.to(() => ChatView(recieverEmail, lastMessage)),
+      onTap: () => Get.to(() => ChatView(recieverId, recieverEmail)),
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0),
         child: Container(

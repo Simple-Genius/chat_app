@@ -1,9 +1,7 @@
 import 'package:chat_app/app/modules/login/views/login_view.dart';
 import 'package:chat_app/app/modules/widgets/details_field.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
@@ -23,13 +21,13 @@ class SignupView extends GetView<SignupController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     'Welcome\nUser',
                     style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                   ),
                   Stack(
                     children: [
-                      CircleAvatar(
+                      const CircleAvatar(
                         backgroundColor: Color(0xff999999),
                         radius: 60,
                       ),
@@ -38,7 +36,7 @@ class SignupView extends GetView<SignupController> {
                         bottom: 1,
                         child: IconButton(
                           onPressed: () {},
-                          icon: Icon(Icons.add_a_photo),
+                          icon: const Icon(Icons.add_a_photo),
                         ),
                       )
                     ],
@@ -46,10 +44,9 @@ class SignupView extends GetView<SignupController> {
                 ],
               ),
               const SizedBox(height: 10),
-              Text(
+              const Text(
                 'Sign up to join',
-                style:
-                    TextStyle(color: const Color.fromARGB(255, 146, 141, 141)),
+                style: TextStyle(color: Color.fromARGB(255, 146, 141, 141)),
               ),
               const SizedBox(height: 30),
               DetailsFeild(

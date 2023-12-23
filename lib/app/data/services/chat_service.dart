@@ -22,7 +22,7 @@ class ChatService extends GetxService {
         message: message,
         timestamp: timestamp);
 
-    List<String> ids = [currentUserId, currentUserEmail];
+    List<String> ids = [currentUserId, recieverId];
     ids.sort();
     final chatRoomId = ids.join('_');
     await firestore

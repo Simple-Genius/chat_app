@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class AuthService extends GetxService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Rxn<User?> user = Rxn<User?>();
 
@@ -13,6 +13,11 @@ class AuthService extends GetxService {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
+
+      firestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({'uId': userCredential.user!.uid, 'email': email});
       return userCredential.user;
     } catch (e) {
       print(e.toString());
@@ -25,6 +30,7 @@ class AuthService extends GetxService {
     try {
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
+
       return userCredential.user;
     } catch (e) {
       print(e.toString());

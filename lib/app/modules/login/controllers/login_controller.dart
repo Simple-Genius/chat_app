@@ -11,16 +11,21 @@ class LoginController extends GetxController {
   final count = 0.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  RxBool isLoading = false.obs;
+
   @override
   void onInit() {
     super.onInit();
   }
 
   void signIn() async {
+    isLoading.value = true;
     User? user = await authService.signInWithEmailAndPassword(
         emailController.text, passwordController.text);
     if (user != null) {
       Get.to(() => DashboardView());
+      isLoading.value = false;
     }
   }
 

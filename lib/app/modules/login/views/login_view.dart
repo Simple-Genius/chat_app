@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:chat_app/app/modules/login/controllers/login_controller.dart';
 import 'package:chat_app/app/modules/signup/views/signup_view.dart';
 import 'package:chat_app/app/modules/widgets/details_field.dart';
@@ -81,7 +83,7 @@ class LoginView extends GetView<LoginController> {
                 ],
               ),
               const SizedBox(height: 10),
-              Align(
+              Obx(() => Align(
                   child: ElevatedButton(
                       onPressed: () {
                         controller.signIn();
@@ -92,7 +94,12 @@ class LoginView extends GetView<LoginController> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 16, horizontal: 160),
                       ),
-                      child: const Text('Login')))
+                      child: controller.isLoading.value == false
+                          ? const Text('Login')
+                          : const CircularProgressIndicator(
+                              strokeWidth: 2,
+                              color: Colors.white,
+                            ))))
             ],
           ),
         ));

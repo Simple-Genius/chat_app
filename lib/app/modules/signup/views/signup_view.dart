@@ -108,16 +108,23 @@ class SignupView extends GetView<SignupController> {
                 ],
               ),
               const SizedBox(height: 10),
-              Align(
+              Obx(() => Align(
                   child: ElevatedButton(
-                      onPressed: controller.signUp,
+                      onPressed: () {
+                        controller.signUp();
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)),
                         padding: const EdgeInsets.symmetric(
                             vertical: 16, horizontal: 160),
                       ),
-                      child: const Text('Sign Up')))
+                      child: controller.isLoading.value == false
+                          ? const Text('Sign Up')
+                          : const CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                              color: Colors.white,
+                            ))))
             ],
           ),
         ));

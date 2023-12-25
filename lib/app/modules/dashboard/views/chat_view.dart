@@ -18,11 +18,15 @@ class ChatView extends GetView {
 
   Widget buildMessage(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    var message = data['senderId'] == firebaseAuth.currentUser!.uid
-        ? UserText(message: 'User message')
-        : SenderText(message: "Sender message");
+    if (snapshot.data() != null) {
+      print("-------Data is available---------");
+      var message = data['senderId'] == firebaseAuth.currentUser!.uid
+          ? UserText(message: messageController.text)
+          : SenderText(message: data['messages']);
+      return message;
+    }
 
-    return message;
+    return Text('------data is unavailable');
   }
 
   @override
@@ -30,43 +34,43 @@ class ChatView extends GetView {
     return Scaffold(
       appBar: AppBar(
         title: Text(recieverEmail),
-        backgroundColor: Color(0xFF2B3594),
+        backgroundColor: const Color(0xFF2B3594),
         centerTitle: true,
       ),
       body: Column(
         children: [
           Expanded(
-            child: SingleChildScrollView(
-                child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: StreamBuilder(
-                      stream: chatService.getMessages(
-                          firebaseAuth.currentUser!.uid, receiverId),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return Center(
-                            child: Text(
-                                'Could not load messages\n${snapshot.error}'),
-                          );
-                        }
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          );
-                        }
-                        return ListView(
-                          children: snapshot.data!.docs
-                              .map((document) => buildMessage(document))
-                              .toList(),
-                        );
-                      },
-                    ))),
+            child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: StreamBuilder(
+                  stream: chatService.getMessages(
+                      receiverId, firebaseAuth.currentUser!.uid),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child:
+                            Text('Could not load messages\n${snapshot.error}'),
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    }
+                    print("--------------------------------------------");
+                    return ListView(
+                      children: snapshot.data!.docs
+                          .map((document) => buildMessage(document))
+                          .toList(),
+                    );
+                  },
+                )),
           ),
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
             child: TextField(
+              controller: messageController,
               decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(15),
                   filled: true,
@@ -86,7 +90,7 @@ class ChatView extends GetView {
                               messageController.clear();
                             }
                           },
-                          icon: Icon(Icons.keyboard_voice))
+                          icon: const Icon(Icons.keyboard_voice))
                     ],
                   ),
                   fillColor: const Color.fromARGB(255, 187, 184, 201),

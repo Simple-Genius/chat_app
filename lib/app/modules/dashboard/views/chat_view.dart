@@ -19,10 +19,10 @@ class ChatView extends GetView {
   Widget buildMessage(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     if (snapshot.data() != null) {
-      print("-------Data is available---------");
       var message = data['senderId'] == firebaseAuth.currentUser!.uid
           ? UserText(message: messageController.text)
           : SenderText(message: data['messages']);
+      print(data['messages']);
       return message;
     }
 
@@ -57,7 +57,8 @@ class ChatView extends GetView {
                         child: CircularProgressIndicator.adaptive(),
                       );
                     }
-                    print("--------------------------------------------");
+                    snapshot.data!.docs.isEmpty ? print('em') : print('f');
+
                     return ListView(
                       children: snapshot.data!.docs
                           .map((document) => buildMessage(document))

@@ -1,4 +1,4 @@
-import 'package:chat_app/app/modules/dashboard/views/chat_view_view.dart';
+import 'package:chat_app/app/modules/dashboard/views/chat_view.dart';
 import 'package:chat_app/app/modules/widgets/bottom_nav_bar.dart';
 import 'package:chat_app/app/modules/widgets/chatItem.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,12 +12,18 @@ import '../controllers/dashboard_controller.dart';
 class DashboardView extends GetView<DashboardController> {
   DashboardView({Key? key}) : super(key: key);
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   buildChatItem(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-    if (firebaseAuth.currentUser!.email != data['email']) {
-      return ChatItem(recieverEmail: data['email'], lastMessage: 'lastMessage');
+    if (firebaseAuth.currentUser?.email == data['email']) {
+      return Container();
     }
+    return ChatItem(
+      recieverEmail: data['email'],
+      lastMessage: 'lastMessage',
+      recieverId: data['uId'],
+    );
   }
 
   @override
@@ -36,9 +42,10 @@ class DashboardView extends GetView<DashboardController> {
           pageNumber: 0,
         ),
         body: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('users').snapshots(),
+          stream: firestore.collection('users').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
+              print("------------\n${snapshot.error}");
               return Center(
                 child: Text('Could not load messages\n${snapshot.error}'),
               );
@@ -49,9 +56,11 @@ class DashboardView extends GetView<DashboardController> {
               );
             }
             return ListView(
-              children: snapshot.data!.docs
-                  .map<Widget>((doc) => buildChatItem(doc))
-                  .toList(),
+              children: snapshot.hasData
+                  ? snapshot.data!.docs
+                      .map<Widget>((doc) => buildChatItem(doc))
+                      .toList()
+                  : [],
             );
           },
         ));

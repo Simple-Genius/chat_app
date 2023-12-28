@@ -22,11 +22,10 @@ class ChatView extends GetView {
       var message = data['senderId'] == firebaseAuth.currentUser!.uid
           ? UserText(message: messageController.text)
           : SenderText(message: data['messages']);
-      print(data['messages']);
+
       return message;
     }
-
-    return Text('------data is unavailable');
+    return const Text('------data is unavailable');
   }
 
   @override
@@ -57,7 +56,7 @@ class ChatView extends GetView {
                         child: CircularProgressIndicator.adaptive(),
                       );
                     }
-                    snapshot.data!.docs.isEmpty ? print('em') : print('f');
+                    print(snapshot.data!.docs);
 
                     return ListView(
                       children: snapshot.data!.docs
@@ -77,12 +76,13 @@ class ChatView extends GetView {
                   filled: true,
                   hintText: "Type a message",
                   prefixIcon: IconButton(
-                      onPressed: () {}, icon: Icon(Icons.emoji_emotions)),
+                      onPressed: () {}, icon: const Icon(Icons.emoji_emotions)),
                   suffixIcon: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                          onPressed: () {}, icon: Icon(Icons.attach_file)),
+                          onPressed: () {},
+                          icon: const Icon(Icons.attach_file)),
                       IconButton(
                           onPressed: () async {
                             if (messageController.text.isNotEmpty) {

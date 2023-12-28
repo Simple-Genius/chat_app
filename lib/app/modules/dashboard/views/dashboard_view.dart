@@ -19,6 +19,7 @@ class DashboardView extends GetView<DashboardController> {
     if (firebaseAuth.currentUser?.email == data['email']) {
       return Container();
     }
+    print(data['uid']);
     return ChatItem(
       recieverEmail: data['email'],
       lastMessage: 'lastMessage',
@@ -45,7 +46,6 @@ class DashboardView extends GetView<DashboardController> {
           stream: firestore.collection('users').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
-              print("------------\n${snapshot.error}");
               return Center(
                 child: Text('Could not load messages\n${snapshot.error}'),
               );
@@ -55,6 +55,7 @@ class DashboardView extends GetView<DashboardController> {
                 child: CircularProgressIndicator.adaptive(),
               );
             }
+
             return ListView(
               children: snapshot.hasData
                   ? snapshot.data!.docs

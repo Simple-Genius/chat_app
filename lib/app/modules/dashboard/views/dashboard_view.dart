@@ -19,7 +19,6 @@ class DashboardView extends GetView<DashboardController> {
     if (firebaseAuth.currentUser?.email == data['email']) {
       return Container();
     }
-    print(data['uid']);
     return ChatItem(
       recieverEmail: data['email'],
       lastMessage: 'lastMessage',

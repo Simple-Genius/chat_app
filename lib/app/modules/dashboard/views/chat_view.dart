@@ -20,8 +20,8 @@ class ChatView extends GetView {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
     if (snapshot.data() != null) {
       var message = data['senderId'] == firebaseAuth.currentUser!.uid
-          ? UserText(message: messageController.text)
-          : SenderText(message: data['messages']);
+          ? UserText(message: data['message'])
+          : SenderText(message: data['message']);
 
       return message;
     }
@@ -30,6 +30,9 @@ class ChatView extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    final ids = [receiverId, firebaseAuth.currentUser!.uid];
+    ids.sort();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(recieverEmail),
@@ -42,8 +45,12 @@ class ChatView extends GetView {
             child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: StreamBuilder(
-                  stream: chatService.getMessages(
-                      receiverId, firebaseAuth.currentUser!.uid),
+                  stream: firestore
+                      .collection('chat_rooms')
+                      .doc(ids.join('_'))
+                      .collection('messages')
+                      .orderBy('timesatamp')
+                      .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Center(
@@ -56,8 +63,6 @@ class ChatView extends GetView {
                         child: CircularProgressIndicator.adaptive(),
                       );
                     }
-                    print(snapshot.data!.docs);
-
                     return ListView(
                       children: snapshot.data!.docs
                           .map((document) => buildMessage(document))

@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SignupController extends GetxController {
-  final count = 0.obs;
   RxBool checkBoxValue = false.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
@@ -30,6 +29,4 @@ class SignupController extends GetxController {
       isLoading.value = false;
     }
   }
-
-  void increment() => count.value++;
 }

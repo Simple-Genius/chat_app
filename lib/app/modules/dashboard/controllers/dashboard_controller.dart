@@ -1,3 +1,4 @@
+import 'package:chat_app/app/service.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {

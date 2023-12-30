@@ -45,12 +45,8 @@ class ChatView extends GetView {
             child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: StreamBuilder(
-                  stream: firestore
-                      .collection('chat_rooms')
-                      .doc(ids.join('_'))
-                      .collection('messages')
-                      .orderBy('timesatamp')
-                      .snapshots(),
+                  stream: chatService.getMessages(
+                      receiverId, firebaseAuth.currentUser!.uid),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Center(

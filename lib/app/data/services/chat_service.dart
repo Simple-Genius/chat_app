@@ -32,24 +32,6 @@ class ChatService extends GetxService {
         .add(newMessage.toMap());
   }
 
-  // Future<List<Map<String, dynamic>>> getMessages(
-  //     String receiverId, String senderId) async {
-  //   try {
-  //     QuerySnapshot<Map<String, dynamic>> querySnapshot = await firestore
-  //         .collection('messages')
-  //         .where('receiverId', isEqualTo: receiverId)
-  //         .where('senderId', isEqualTo: senderId)
-  //         .orderBy('timestamp')
-  //         .get();
-
-  //     return querySnapshot.docs.map((doc) => doc.data()).toList();
-  //   } catch (e) {
-  //     print('Error fetching messages: $e');
-  //     // Handle error appropriately, e.g., show an error message to the user
-  //     return [];
-  //   }
-  // }
-
   Stream<QuerySnapshot> getMessages(String userId, String otherUserId) {
     List<String> ids = [userId, otherUserId];
     ids.sort();

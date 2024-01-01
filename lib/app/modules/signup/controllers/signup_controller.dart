@@ -1,9 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:chat_app/app/modules/dashboard/views/dashboard_view.dart';
-import 'package:chat_app/app/modules/home/views/home_view.dart';
 import 'package:chat_app/app/service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignupController extends GetxController {
   RxBool checkBoxValue = false.obs;
@@ -17,6 +19,18 @@ class SignupController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  void selectImage() async {
+    Uint8List image = await pickImage(ImageSource.gallery);
+  }
+
+  pickImage(ImageSource imageSource) async {
+    final ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: imageSource);
+    if (file != null) {
+      return await file.readAsBytes();
+    }
   }
 
   void signUp() async {

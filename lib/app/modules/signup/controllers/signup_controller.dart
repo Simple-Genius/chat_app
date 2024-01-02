@@ -15,6 +15,7 @@ class SignupController extends GetxController {
   TextEditingController passwordController = TextEditingController();
 
   RxBool isLoading = false.obs;
+  Rx<Uint8List?> newImage = null.obs;
 
   @override
   void onInit() {
@@ -23,6 +24,7 @@ class SignupController extends GetxController {
 
   void selectImage() async {
     Uint8List image = await pickImage(ImageSource.gallery);
+    newImage.value = image;
   }
 
   pickImage(ImageSource imageSource) async {

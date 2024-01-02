@@ -27,15 +27,24 @@ class SignupView extends GetView<SignupController> {
                   ),
                   Stack(
                     children: [
-                      const CircleAvatar(
-                        backgroundColor: Color(0xff999999),
-                        radius: 60,
-                      ),
+                      controller.newImage.value != null
+                          ? Obx(
+                              () => CircleAvatar(
+                                radius: 60,
+                                child: Image(
+                                    image: MemoryImage(
+                                        controller.newImage.value!)),
+                              ),
+                            )
+                          : const CircleAvatar(
+                              backgroundColor: Color(0xff999999),
+                              radius: 60,
+                            ),
                       Positioned(
                         left: 80,
                         bottom: 1,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: controller.selectImage,
                           icon: const Icon(Icons.add_a_photo),
                         ),
                       )

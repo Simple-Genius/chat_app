@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:chat_app/app/modules/login/views/login_view.dart';
 import 'package:chat_app/app/modules/widgets/details_field.dart';
 import 'package:flutter/material.dart';
@@ -27,13 +29,12 @@ class SignupView extends GetView<SignupController> {
                   ),
                   Stack(
                     children: [
-                      controller.newImage.value != null
+                      controller.newImage.value.isNotEmpty
                           ? Obx(
                               () => CircleAvatar(
                                 radius: 60,
-                                child: Image(
-                                    image: MemoryImage(
-                                        controller.newImage.value!)),
+                                backgroundImage:
+                                    MemoryImage(controller.newImage.value),
                               ),
                             )
                           : const CircleAvatar(

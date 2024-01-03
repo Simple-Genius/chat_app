@@ -15,7 +15,7 @@ class SignupController extends GetxController {
   TextEditingController passwordController = TextEditingController();
 
   RxBool isLoading = false.obs;
-  Rx<Uint8List?> newImage = null.obs;
+  Rx<Uint8List> newImage = Uint8List(0).obs;
 
   @override
   void onInit() {

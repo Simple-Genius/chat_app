@@ -40,7 +40,6 @@ class SignupController extends GetxController {
     User? user = await authService.signUpWithEmailAndPassword(
         emailController.text, passwordController.text);
     if (user != null) {
-      print('User has been created successfully');
       Get.to(() => DashboardView());
       isLoading.value = false;
     }

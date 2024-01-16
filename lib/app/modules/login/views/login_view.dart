@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:chat_app/app/modules/login/controllers/login_controller.dart';
 import 'package:chat_app/app/modules/signup/views/signup_view.dart';
 import 'package:chat_app/app/modules/widgets/details_field.dart';

@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:chat_app/app/modules/login/views/login_view.dart';
 import 'package:chat_app/app/modules/widgets/details_field.dart';
 import 'package:flutter/material.dart';
@@ -27,30 +25,28 @@ class SignupView extends GetView<SignupController> {
                     'Welcome\nUser',
                     style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                   ),
-                  Stack(
-                    children: [
-                      controller.newImage.value.isNotEmpty
-                          ? Obx(
-                              () => CircleAvatar(
-                                radius: 60,
-                                backgroundImage:
-                                    MemoryImage(controller.newImage.value),
-                              ),
-                            )
-                          : const CircleAvatar(
-                              backgroundColor: Color(0xff999999),
-                              radius: 60,
+                  Obx(() => Stack(
+                        children: [
+                          controller.newImage.value.isNotEmpty
+                              ? CircleAvatar(
+                                  radius: 60,
+                                  backgroundImage:
+                                      MemoryImage(controller.newImage.value),
+                                )
+                              : const CircleAvatar(
+                                  backgroundColor: Color(0xff999999),
+                                  radius: 60,
+                                ),
+                          Positioned(
+                            left: 80,
+                            bottom: 1,
+                            child: IconButton(
+                              onPressed: controller.selectImage,
+                              icon: const Icon(Icons.add_a_photo),
                             ),
-                      Positioned(
-                        left: 80,
-                        bottom: 1,
-                        child: IconButton(
-                          onPressed: controller.selectImage,
-                          icon: const Icon(Icons.add_a_photo),
-                        ),
-                      )
-                    ],
-                  )
+                          )
+                        ],
+                      )),
                 ],
               ),
               const SizedBox(height: 10),
@@ -95,7 +91,17 @@ class SignupView extends GetView<SignupController> {
                   ),
                   const Text('I agree to the'),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.defaultDialog(
+                          title: 'Terms of Service',
+                          content: SingleChildScrollView(
+                            child: Text(
+                              controller.text,
+                              textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        );
+                      },
                       child: const Text(
                         'Terms of Service',
                         style: TextStyle(color: Colors.blue),

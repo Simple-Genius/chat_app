@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 class AuthService extends GetxService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  RxBool allowSignUp = false.obs;
+  RxString errorMessage = ''.obs;
 
   Rxn<User?> user = Rxn<User?>();
 
@@ -23,6 +25,22 @@ class AuthService extends GetxService {
       print(e.toString());
     }
     return null;
+  }
+
+  validateName(String value) {
+    if (value.isEmpty) {
+      errorMessage.value = "Fields cannot be empty";
+    } else {
+      allowSignUp.value = true;
+    }
+  }
+
+  void validatePassword(String value) {
+    if (value.isEmpty) {
+      errorMessage.value = "Fields cannot be empty";
+    } else if (value.length < 6) {
+      errorMessage.value = "password must be more than 8 characters";
+    }
   }
 
   Future<User?> signInWithEmailAndPassword(

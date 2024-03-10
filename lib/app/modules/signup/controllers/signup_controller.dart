@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class SignupController extends GetxController {
-  RxBool checkBoxValue = false.obs;
+  RxBool agreedToTerms = false.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -36,12 +36,14 @@ class SignupController extends GetxController {
   }
 
   void signUp() async {
-    isLoading.value = true;
-    User? user = await authService.signUpWithEmailAndPassword(
-        emailController.text, passwordController.text);
-    if (user != null) {
-      Get.to(() => DashboardView());
-      isLoading.value = false;
+    if (authService.allowSignUp.value = true) {
+      isLoading.value = true;
+      User? user = await authService.signUpWithEmailAndPassword(
+          emailController.text, passwordController.text);
+      if (user != null) {
+        Get.to(() => DashboardView());
+        isLoading.value = false;
+      }
     }
   }
 

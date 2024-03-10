@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import '../controllers/dashboard_controller.dart';
 
+// ignore: must_be_immutable
 class DashboardView extends GetView<DashboardController> {
   DashboardView({Key? key}) : super(key: key);
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;

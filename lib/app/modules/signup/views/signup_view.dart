@@ -1,5 +1,6 @@
 import 'package:chat_app/app/modules/login/views/login_view.dart';
 import 'package:chat_app/app/modules/widgets/details_field.dart';
+import 'package:chat_app/app/service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/signup_controller.dart';
@@ -16,8 +17,9 @@ class SignupView extends GetView<SignupController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 150,
+                height: 140,
               ),
+              Obx(() => Text(authService.errorMessage.value)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -80,11 +82,11 @@ class SignupView extends GetView<SignupController> {
                 children: [
                   Obx(
                     () => Checkbox(
-                      value: controller.checkBoxValue.value,
+                      value: controller.agreedToTerms.value,
                       activeColor: Colors.green,
                       onChanged: (value) {
-                        controller.checkBoxValue.value =
-                            !controller.checkBoxValue.value;
+                        controller.agreedToTerms.value =
+                            !controller.agreedToTerms.value;
                       },
                       shape: const CircleBorder(),
                     ),

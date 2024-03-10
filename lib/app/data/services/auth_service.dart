@@ -27,7 +27,7 @@ class AuthService extends GetxService {
     return null;
   }
 
-  validateName(String value) {
+  void validateName(String value) {
     if (value.isEmpty) {
       errorMessage.value = "Fields cannot be empty";
     } else {
@@ -40,6 +40,18 @@ class AuthService extends GetxService {
       errorMessage.value = "Fields cannot be empty";
     } else if (value.length < 6) {
       errorMessage.value = "password must be more than 8 characters";
+    } else {
+      allowSignUp.value = true;
+    }
+  }
+
+  void validatePhone(String value) {
+    if (value.isEmpty) {
+      errorMessage.value = "Fields cannot be empty";
+    } else if (!value.isNumericOnly) {
+      errorMessage.value = "Please enter a valid phone number";
+    } else {
+      allowSignUp.value = true;
     }
   }
 

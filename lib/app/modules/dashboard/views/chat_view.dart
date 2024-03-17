@@ -95,7 +95,7 @@ class ChatView extends GetView {
                           icon: const Icon(Icons.keyboard_voice))
                     ],
                   ),
-                  fillColor: const Color.fromARGB(255, 187, 184, 201),
+                  fillColor: const Color.fromARGB(255, 207, 203, 222),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none)),
